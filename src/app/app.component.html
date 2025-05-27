@@ -4,5 +4,10 @@
       src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg"
     />
     <h1>Angular university</h1>
+    @if (!store.loading()) {
+    <todos-list></todos-list>
+    } @else {
+    <mat-spinner></mat-spinner>
+    }
   </div>
 </div>

@@ -1,0 +1,21 @@
+<H2>NGRX STORE TODO MAP</H2>
+<mat-form-field class="todo-input">
+  <mat-label>Enter todo and press ENTER</mat-label>
+  <input matInput #input />
+  <mat-icon matTextSuffix>edit</mat-icon>
+</mat-form-field>
+<mat-button-toggle-group #filter>
+  <mat-button-toggle value="all">All</mat-button-toggle>
+  <mat-button-toggle value="pending">Pending</mat-button-toggle>
+  <mat-button-toggle value="completed">Completed</mat-button-toggle>
+</mat-button-toggle-group>
+<mat-selection-list #todos class="todos-list">
+  @for (todo of store.todos(); track todo.id) {
+  <mat-list-option>
+    <div class="todo-item">
+      <mat-icon class="delete-todo">delete</mat-icon>
+      <span>{{ todo.title }}</span>
+    </div>
+  </mat-list-option>
+  }
+</mat-selection-list>
