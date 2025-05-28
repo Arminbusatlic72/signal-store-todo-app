@@ -9,14 +9,24 @@
   <mat-button-toggle value="pending">Pending</mat-button-toggle>
   <mat-button-toggle value="completed">Completed</mat-button-toggle>
 </mat-button-toggle-group>
+
 <mat-selection-list #todos class="todos-list">
   @for (todo of store.todos(); track todo.id) {
-  <mat-list-option>
+  <mat-list-option
+    [selected]="todo.completed"
+    (selectedChange)="onTodoToggled(todo.id, !todo.completed)"
+  >
     <div class="todo-item">
-      <mat-icon class="delete-todo" (click)="onDeleteTodo(todo.id, $event)"
-        >delete</mat-icon
+      <mat-icon class="delete-todo" (click)="onDeleteTodo(todo.id, $event)">
+        delete
+      </mat-icon>
+      <span
+        [ngStyle]="{
+          'text-decoration': todo.completed ? 'line-through' : 'none'
+        }"
       >
-      <span>{{ todo.title }}</span>
+        {{ todo.title }}
+      </span>
     </div>
   </mat-list-option>
   }

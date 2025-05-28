@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
+import { NgStyle } from '@angular/common';
 import {
   MatFormFieldModule,
   MatLabel,
@@ -22,8 +22,9 @@ import { TodosStore } from '../store/todos.store';
     MatSuffix,
     MatLabel,
     MatButtonToggleModule,
+    NgStyle,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './todos-list.component.html',
   styleUrl: './todos-list.component.css',
 })
@@ -35,5 +36,8 @@ export class TodosListComponent {
   async onDeleteTodo(id: string, event: MouseEvent) {
     event.stopPropagation();
     await this.store.deleteTodo(id);
+  }
+  async onTodoToggled(id: string, completed: boolean) {
+    await this.store.updateTodo(id, completed);
   }
 }

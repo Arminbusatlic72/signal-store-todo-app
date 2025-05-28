@@ -20,6 +20,9 @@ export class TodosService {
   async deleteTodo(id: string) {
     await sleep(500);
   }
+  async updateTodo(id: string, completed: boolean) {
+    await sleep(1000);
+  }
 }
 
 // This method simulates the backend call
