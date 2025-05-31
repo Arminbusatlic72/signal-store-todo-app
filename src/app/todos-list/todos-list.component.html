@@ -1,19 +1,24 @@
 <H2>NGRX STORE TODO MAP</H2>
 <mat-form-field class="todo-input">
   <mat-label>Enter todo and press ENTER</mat-label>
-  <input matInput #input (keyup.enter)="onAddTodo(input.value)" />
+  <input
+    matInput
+    #input
+    [disabled]="store.loading()"
+    (keyup.enter)="onAddTodo(input.value); input.value = ''; input.focus()"
+  />
   <mat-icon matTextSuffix>edit</mat-icon>
 </mat-form-field>
-<mat-button-toggle-group #filter>
+<mat-button-toggle-group #filter (change)="onFilterTodos($event)">
   <mat-button-toggle value="all">All</mat-button-toggle>
   <mat-button-toggle value="pending">Pending</mat-button-toggle>
   <mat-button-toggle value="completed">Completed</mat-button-toggle>
 </mat-button-toggle-group>
 
-<mat-selection-list #todos class="todos-list">
-  @for (todo of store.todos(); track todo.id) {
+<mat-selection-list #todos class="todos-list" [compareWith]="compareTodos">
+  @for (todo of store.filteredTodos(); track todo.id) {
   <mat-list-option
-    [selected]="todo.completed"
+    [value]="todo"
     (selectedChange)="onTodoToggled(todo.id, !todo.completed)"
   >
     <div class="todo-item">
